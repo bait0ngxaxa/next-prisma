@@ -1,12 +1,9 @@
-
 import Link from "next/link";
 
 export default function Navbar() {
-
-    
     return (
         <>
-            <div className="navbar bg-base-100 shadow-xl relative">
+            <div className="navbar bg-base-100 shadow-xl sticky">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div
@@ -34,20 +31,25 @@ export default function Navbar() {
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                         >
                             <li>
-                                <a>Homepage</a>
+                                <p>Homepage</p>
                             </li>
                             <li>
-                                <a>Portfolio</a>
+                                <Link href={"/userslist"}>
+                                    <p>Portfolio</p>
+                                </Link>
                             </li>
                             <li>
-                                <a>About</a>
+                                <p>About</p>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div className="navbar-center">
-                    <Link href={"/"}><p className="btn btn-ghost text-xl">WELCOME TO MY WEBSITE</p></Link>
-                    
+                    <Link href={"/"}>
+                        <p className="btn btn-ghost text-xl">
+                            WELCOME TO MY WEBSITE
+                        </p>
+                    </Link>
                 </div>
                 <div className="navbar-end">
                     <button className="btn btn-ghost btn-circle">

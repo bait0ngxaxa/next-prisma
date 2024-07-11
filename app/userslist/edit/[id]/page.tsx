@@ -1,49 +1,37 @@
 "use client";
 
-import axios from "axios";
 import Link from "next/link";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function Register() {
+export default function Editusers({ params }: { params: { id: string } }) {
+    const id = parseInt(params.id);
     const router = useRouter();
 
-    const [regdata, setRegdata] = useState({
-        firstname: "",
-        lastname: "",
-        username: "",
-        password: "",
-    });
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-    const formChange = (event: any) => {
-        const { name, value } = event.target;
-        setRegdata({
-            ...regdata,
-            [name]: value,
-        });
-    };
-
-    const submitSignup = async (event: any) => {
+    const submitEdit = async (event: React.FormEvent) => {
         event.preventDefault();
         const dataComplete = {
-            firstname: regdata.firstname,
-            lastname: regdata.lastname,
-            username: regdata.username,
-            password: regdata.password,
+            firstname: firstname,
+            lastname: lastname,
+            username: username,
+            password: password,
         };
-        if (
-            !regdata.firstname ||
-            !regdata.lastname ||
-            !regdata.username ||
-            !regdata.password
-        ) {
+        if (!firstname || !lastname || !username || !password) {
             alert("Require Input");
         } else {
             try {
-                const response = await axios.post("/api/getall", dataComplete);
+                const response = await axios.put(
+                    `http://localhost:3000/api/getall/${id}`,
+                    dataComplete
+                );
                 if (response.status === 200) {
-                    setRegdata(response.data);
-                    alert("Create Successful");
+                    alert("Edit Successful");
                     router.push("/userslist");
                 }
             } catch (error) {
@@ -52,14 +40,30 @@ export default function Register() {
         }
     };
 
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(`/api/getall/${id}`);
+            setFirstname(response.data.firstname);
+            setLastname(response.data.lastname);
+            setUsername(response.data.username);
+            setPassword(response.data.password);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     return (
         <>
             <div className="max-h-lvh h-lvh flex flex-1 flex-col gap-10 justify-center items-center">
-                <div className="text-5xl font-semibold">REGISTER PAGE</div>
-                <form onSubmit={submitSignup}>
+                <div className="text-5xl font-semibold">EDIT ID {id}</div>
+                <form onSubmit={submitEdit}>
                     <div className="container max-h-full max-w-full h-full w-full bg-zinc-200 p-5 rounded-md shadow-xl">
                         <div className="font-semibold text-2xl text-center">
-                            Register
+                            Edit
                             <hr />
                         </div>
 
@@ -70,8 +74,10 @@ export default function Register() {
                                 placeholder="example : testfirstname"
                                 className="input w-full mt-2 bg-zinc-200"
                                 name="firstname"
-                                value={regdata.firstname}
-                                onChange={formChange}
+                                value={firstname}
+                                onChange={(event) =>
+                                    setFirstname(event.target.value)
+                                }
                             />
                             <hr className="border-white" />
                         </div>
@@ -84,8 +90,10 @@ export default function Register() {
                                 className="input w-full mt-2 bg-zinc-200"
                                 placeholder="example : testlastname"
                                 name="lastname"
-                                value={regdata.lastname}
-                                onChange={formChange}
+                                value={lastname}
+                                onChange={(event) =>
+                                    setLastname(event.target.value)
+                                }
                             />
                             <hr className="border-white" />
                         </div>
@@ -98,8 +106,10 @@ export default function Register() {
                                 className="input w-full mt-2 bg-zinc-200"
                                 placeholder="6 characters more"
                                 name="username"
-                                value={regdata.username}
-                                onChange={formChange}
+                                value={username}
+                                onChange={(event) =>
+                                    setUsername(event.target.value)
+                                }
                             />
                             <hr className="border-white" />
                         </div>
@@ -112,8 +122,10 @@ export default function Register() {
                                 className="input w-full mt-2 bg-zinc-200"
                                 placeholder="6 characters more"
                                 name="password"
-                                value={regdata.password}
-                                onChange={formChange}
+                                value={password}
+                                onChange={(event) =>
+                                    setPassword(event.target.value)
+                                }
                             />
                             <hr className="border-white" />
                         </div>
@@ -123,9 +135,9 @@ export default function Register() {
                                 className="btn btn-primary mt-5 "
                                 type="submit"
                             >
-                                Sign up
+                                Edit
                             </button>
-                            <Link href={"/login"}>
+                            <Link href={"/userslist"}>
                                 <button
                                     className="btn btn-ghost mt-5 ml-8"
                                     type="submit"

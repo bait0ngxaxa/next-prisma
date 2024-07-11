@@ -7,8 +7,8 @@ export default function Home() {
     return (
         <>
             <div className="container w-3/4 max-w-full h-lvh flex flex-col gap-5 justify-center items-center mx-auto">
-            <div className="text-6xl slidel">Hi,HOMEPAGE</div>
-                
+                <div className="text-6xl slidel">Hi,HOMEPAGE</div>
+
                 <div>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Aliquid est impedit iusto vitae enim illo earum dolor magni,

@@ -1,7 +1,7 @@
 "use client";
 
 import "../globals.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -11,24 +11,6 @@ export default function Login() {
         username: "",
         password: "",
     });
-    const [username, setUsername] = useState(false);
-    const [password, setPassword] = useState(false);
-
-    useEffect(() => {
-        if (userData.username.length < 6) {
-            setUsername(true);
-        } else {
-            setUsername(false);
-        }
-    }, [userData.username]);
-
-    useEffect(() => {
-        if (userData.password.length < 6) {
-            setPassword(true);
-        } else {
-            setPassword(false);
-        }
-    }, [userData.password]);
 
     const handleChange = (event: any) => {
         const { name, value } = event.target;
@@ -68,7 +50,7 @@ export default function Login() {
             <div className="max-h-lvh h-lvh flex flex-1 flex-col gap-10 justify-center items-center">
                 <div className="text-5xl font-semibold">LOGIN PAGE</div>
                 <form onSubmit={handleSubmit}>
-                    <div className="container max-h-96 max-w-96 h-full w-full bg-violet-300 p-5 rounded-md shadow-lg relative">
+                    <div className="container max-h-96 max-w-96 h-full w-full bg-zinc-200 p-5 rounded-md shadow-lg relative">
                         <div className="font-semibold text-2xl text-center">
                             Login
                         </div>
@@ -78,36 +60,28 @@ export default function Login() {
                             <input
                                 type="text"
                                 placeholder="example : test"
-                                className="input w-full mt-2 bg-violet-300"
+                                className="input w-full mt-2 bg-zinc-200"
                                 name="username"
                                 value={userData.username}
                                 onChange={handleChange}
                             />
-                            <hr />
+                            <hr className="border-white" />
                         </div>
-                        {username ? (
-                            <div className="text-red-500">
-                                username must be 6 character
-                            </div>
-                        ) : null}
+
                         <div className="mt-1 font-semibold">Password </div>
 
                         <div>
                             <input
                                 type="text"
-                                className="input w-full mt-2 bg-violet-300"
+                                className="input w-full mt-2 bg-zinc-200"
                                 placeholder="6-10 characters"
                                 name="password"
                                 value={userData.password}
                                 onChange={handleChange}
                             />
-                            <hr />
+                            <hr className="border-white" />
                         </div>
-                        {password ? (
-                            <div className="text-red-500">
-                                password must be 6 character
-                            </div>
-                        ) : null}
+
                         <div className="text-center">
                             <button
                                 className="btn btn-primary mt-5 mb-10"
