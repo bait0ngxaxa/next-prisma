@@ -4,6 +4,7 @@ import "../globals.css";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function Login() {
     const [userData, setUserData] = useState({
@@ -49,7 +50,7 @@ export default function Login() {
                     "http://localhost:3000/api/getall",
                     dataForm
                 );
-                console.log(response.data);
+                console.log(response);
 
                 if (response.status === 200) {
                     alert("Successful");
@@ -109,16 +110,24 @@ export default function Login() {
                         ) : null}
                         <div className="text-center">
                             <button
-                                className="btn btn-primary mt-5 mb-3"
+                                className="btn btn-primary mt-5 mb-10"
                                 type="submit"
                             >
                                 Sign in
                             </button>
+                            <Link href={"/register"}>
+                                <button
+                                    className="btn btn-ghost mt-5 mb-3 ml-7"
+                                    type="submit"
+                                >
+                                    No id, Sign up
+                                </button>
+                            </Link>
                         </div>
 
                         <Link href="/">
-                            <span className="absolute left-1 bottom-1 text-sm">
-                                Back to Home
+                            <span className="absolute left-1 bottom-1 text-sm hover:bg-violet-400">
+                                <ArrowBackIcon /> Back to Home
                             </span>
                         </Link>
                     </div>
