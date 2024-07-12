@@ -40,7 +40,10 @@ export default function Register() {
             alert("Require Input");
         } else {
             try {
-                const response = await axios.post("/api/getall", dataComplete);
+                const response = await axios.post(
+                    "http://localhost:3000/api/getalll",
+                    dataComplete
+                );
                 if (response.status === 200) {
                     setRegdata(response.data);
                     alert("Create Successful");
