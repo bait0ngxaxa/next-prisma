@@ -1,6 +1,6 @@
 "use server";
 
-import Users from "@/components/๊Users";
+import Users from "@/components/Users";
 import axios from "axios";
 
 export interface users {
@@ -9,6 +9,7 @@ export interface users {
     lastname: string;
     username: string;
     password: string;
+    createdAt: string;
 }
 
 export default async function Userslist() {

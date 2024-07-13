@@ -19,10 +19,21 @@
     }
 }
 
+@keyframes slide {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
 .slidel {
     animation: warpon 1s;
 }
 
-
-
-
+.slider {
+    animation: slide 2s;
+}

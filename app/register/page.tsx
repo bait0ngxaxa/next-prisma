@@ -8,44 +8,28 @@ import { useRouter } from "next/navigation";
 export default function Register() {
     const router = useRouter();
 
-    const [regdata, setRegdata] = useState({
-        firstname: "",
-        lastname: "",
-        username: "",
-        password: "",
-    });
-
-    const formChange = (event: any) => {
-        const { name, value } = event.target;
-        setRegdata({
-            ...regdata,
-            [name]: value,
-        });
-    };
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
     const submitSignup = async (event: any) => {
         event.preventDefault();
         const dataComplete = {
-            firstname: regdata.firstname,
-            lastname: regdata.lastname,
-            username: regdata.username,
-            password: regdata.password,
+            firstname: firstname,
+            lastname: lastname,
+            username: username,
+            password: password,
         };
-        if (
-            !regdata.firstname ||
-            !regdata.lastname ||
-            !regdata.username ||
-            !regdata.password
-        ) {
+        if (!firstname || !lastname || !username || !password) {
             alert("Require Input");
         } else {
             try {
                 const response = await axios.post(
-                    "http://localhost:3000/api/getalll",
+                    "http://localhost:3000/api/getall",
                     dataComplete
                 );
                 if (response.status === 200) {
-                    setRegdata(response.data);
                     alert("Create Successful");
                     router.push("/userslist");
                 }
@@ -73,8 +57,10 @@ export default function Register() {
                                 placeholder="example : testfirstname"
                                 className="input w-full mt-2 bg-zinc-200"
                                 name="firstname"
-                                value={regdata.firstname}
-                                onChange={formChange}
+                                value={firstname}
+                                onChange={(event) => {
+                                    setFirstname(event.target.value);
+                                }}
                             />
                             <hr className="border-white" />
                         </div>
@@ -87,8 +73,10 @@ export default function Register() {
                                 className="input w-full mt-2 bg-zinc-200"
                                 placeholder="example : testlastname"
                                 name="lastname"
-                                value={regdata.lastname}
-                                onChange={formChange}
+                                value={lastname}
+                                onChange={(event) => {
+                                    setLastname(event.target.value);
+                                }}
                             />
                             <hr className="border-white" />
                         </div>
@@ -101,8 +89,10 @@ export default function Register() {
                                 className="input w-full mt-2 bg-zinc-200"
                                 placeholder="6 characters more"
                                 name="username"
-                                value={regdata.username}
-                                onChange={formChange}
+                                value={username}
+                                onChange={(event) => {
+                                    setUsername(event.target.value);
+                                }}
                             />
                             <hr className="border-white" />
                         </div>
@@ -115,8 +105,10 @@ export default function Register() {
                                 className="input w-full mt-2 bg-zinc-200"
                                 placeholder="6 characters more"
                                 name="password"
-                                value={regdata.password}
-                                onChange={formChange}
+                                value={password}
+                                onChange={(event) => {
+                                    setPassword(event.target.value);
+                                }}
                             />
                             <hr className="border-white" />
                         </div>

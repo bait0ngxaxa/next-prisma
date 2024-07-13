@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { users } from "@/app/userslist/page";
 import { useEffect, useState } from "react";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 export default function Users({ listUsers }: { listUsers: users[] }) {
     const router = useRouter();
@@ -48,7 +50,7 @@ export default function Users({ listUsers }: { listUsers: users[] }) {
 
     return (
         <>
-            <div className="text-center text-5xl mt-5 font-semibold">
+            <div className="text-center text-5xl mt-20 font-semibold">
                 List Users
             </div>
             <div className="overflow-x-auto shadow-lg mt-5">
@@ -61,11 +63,12 @@ export default function Users({ listUsers }: { listUsers: users[] }) {
                             <th>Lastname</th>
                             <th>username</th>
                             <th>password</th>
+                            <th>Created</th>
                         </tr>
                     </thead>
                     <tbody>
                         {/* row 1 */}
-                        {listUser.map((item: users) => {
+                        {listUser.map((item) => {
                             return (
                                 <tr key={item.id}>
                                     <th>{item.id}</th>
@@ -73,13 +76,16 @@ export default function Users({ listUsers }: { listUsers: users[] }) {
                                     <td>{item.lastname}</td>
                                     <td>{item.username}</td>
                                     <td>{item.password}</td>
+                                    <td>{item.createdAt}</td>
                                     <td>
                                         <button
                                             className="btn btn-ghost"
                                             id={String(item.id)}
                                             onClick={handleEdit}
                                         >
-                                            Edit
+                                            <EditOutlinedIcon
+                                                id={String(item.id)}
+                                            />
                                         </button>
                                     </td>
                                     <td>
@@ -88,7 +94,9 @@ export default function Users({ listUsers }: { listUsers: users[] }) {
                                             id={String(item.id)}
                                             onClick={handleDelete}
                                         >
-                                            Delete
+                                            <DeleteOutlineOutlinedIcon
+                                                id={String(item.id)}
+                                            />
                                         </button>
                                     </td>
                                 </tr>

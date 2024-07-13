@@ -7,29 +7,20 @@ import axios from "axios";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function Login() {
-    const [userData, setUserData] = useState({
-        username: "",
-        password: "",
-    });
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
-    const handleChange = (event: any) => {
-        const { name, value } = event.target;
-        setUserData({
-            ...userData,
-            [name]: value,
-        });
-    };
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         const dataForm = {
-            username: userData.username,
-            password: userData.password,
+            username,
+            password,
         };
         if (dataForm.username && dataForm.password) {
             try {
                 const response = await axios.post(
-                    "http://localhost:3000/api/getall",
+                    "http://localhost:3000/api/authen",
                     dataForm
                 );
                 console.log(response);
@@ -62,8 +53,8 @@ export default function Login() {
                                 placeholder="example : test"
                                 className="input w-full mt-2 bg-zinc-200"
                                 name="username"
-                                value={userData.username}
-                                onChange={handleChange}
+                                value={username}
+                                onChange={(event)=>{setUsername(event.target.value)}}
                             />
                             <hr className="border-white" />
                         </div>
@@ -76,8 +67,8 @@ export default function Login() {
                                 className="input w-full mt-2 bg-zinc-200"
                                 placeholder="6-10 characters"
                                 name="password"
-                                value={userData.password}
-                                onChange={handleChange}
+                                value={password}
+                                onChange={(event)=>{setPassword(event.target.value)}}
                             />
                             <hr className="border-white" />
                         </div>
