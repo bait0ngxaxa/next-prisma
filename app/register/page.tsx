@@ -13,7 +13,7 @@ export default function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const submitSignup = async (event: any) => {
+    const submitSignup = async (event: React.FormEvent) => {
         event.preventDefault();
         const dataComplete = {
             firstname: firstname,
